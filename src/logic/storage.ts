@@ -21,34 +21,66 @@ const streakSchema = z.object({
   lastDayISO: z.string().nullable()
 });
 
-const sessionSchema = z.object({
-  id: z.string(),
-  dateISO: z.string(),
-  tests: z
-    .array(
-      z.object({
-        kind: z.union([
-          z.literal('arithmetic'),
-          z.literal('memory'),
-          z.literal('reaction'),
-          z.literal('oddOneOut')
-        ]),
-        score: z.number(),
-        meta: z.record(z.any()).optional()
-      })
-    )
-    .default([]),
-  totalScore: z.number(),
-  brainAge: z.number()
+const testScoreSchema = z.object({
+  kind: z.union([
+    z.literal('arithmetic'),
+    z.literal('memory'),
+    z.literal('reaction'),
+    z.literal('oddOneOut')
+  ]),
+  score: z.number(),
+  meta: z.record(z.unknown()).optional()
 });
 
-const stateSchema: z.ZodType<AppState> = z.object({
-  sessions: z.array(sessionSchema).default([]),
+const sessionSchema = z
+  .object({
+    id: z.string(),
+    dateISO: z.string(),
+    tests: z.array(testScoreSchema).optional(),
+    totalScore: z.number(),
+    brainAge: z.number()
+  })
+  .transform((session): Session => ({
+    ...session,
+    tests: session.tests ?? []
+  }));
+
+const activeSessionTestSchema = testScoreSchema.extend({
+  status: z.union([z.literal('pending'), z.literal('complete')]).default('pending')
+});
+
+const activeSessionSchema = z
+  .object({
+    id: z.string(),
+    dateISO: z.string(),
+    tests: z.array(activeSessionTestSchema).default([]),
+    currentIndex: z.number()
+  })
+  .transform(
+    (session): ActiveSession => ({
+      ...session,
+      tests: session.tests.map((test) => ({
+        ...test,
+        meta: test.meta ?? undefined
+      }))
+    })
+  );
+
+const stateSchemaBase = z.object({
+  sessions: z.array(sessionSchema).optional(),
   streak: streakSchema,
   settings: settingsSchema,
-  badges: z.array(z.string()).default([]),
+  badges: z.array(z.string()).optional(),
   version: z.literal(1)
 });
+
+const stateSchema = stateSchemaBase.transform((state): AppState => ({
+  sessions: state.sessions ?? [],
+  streak: state.streak,
+  settings: state.settings,
+  badges: state.badges ?? [],
+  version: state.version
+}));
 
 export const defaultSettings: AppSettings = {
   lang: 'en',
@@ -120,9 +152,14 @@ export const loadActiveSession = (): ActiveSession | null => {
   if (!storage) return null;
   const raw = storage.getItem(ACTIVE_SESSION_KEY);
   if (!raw) return null;
-  const parsed = safeJSONParse<ActiveSession>(raw, null as unknown as ActiveSession);
+  const parsed = safeJSONParse<unknown>(raw, null);
   if (!parsed) return null;
-  return parsed;
+  const result = activeSessionSchema.safeParse(parsed);
+  if (!result.success) {
+    console.warn('Active session validation failed, discarding', result.error);
+    return null;
+  }
+  return result.data;
 };
 
 export const saveActiveSession = (session: ActiveSession | null) => {

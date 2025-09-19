@@ -42,13 +42,15 @@ const sessionSchema = z.object({
   brainAge: z.number()
 });
 
-const stateSchema: z.ZodType<AppState> = z.object({
-  sessions: z.array(sessionSchema).default([]),
-  streak: streakSchema,
-  settings: settingsSchema,
-  badges: z.array(z.string()).default([]),
-  version: z.literal(1)
-});
+const stateSchema = z
+  .object({
+    sessions: z.array(sessionSchema).default([]),
+    streak: streakSchema,
+    settings: settingsSchema,
+    badges: z.array(z.string()).default([]),
+    version: z.literal(1)
+  })
+  satisfies z.ZodType<AppState>;
 
 export const defaultSettings: AppSettings = {
   lang: 'en',

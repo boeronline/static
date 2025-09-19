@@ -1,0 +1,29 @@
+{
+  "name": "Brain Sparks",
+  "short_name": "BrainSparks",
+  "description": "Daily bilingual brain training with fast, friendly design.",
+  "lang": "en",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#6366f1",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "icons/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Play session",
+      "short_name": "Play",
+      "description": "Jump directly into the daily brain training session.",
+      "url": "/play"
+    },
+    {
+      "name": "View progress",
+      "short_name": "Progress",
+      "description": "Check recent scores and streaks.",
+      "url": "/results"
+    }
+  ]
+}

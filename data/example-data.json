@@ -1,0 +1,212 @@
+{
+  "sessions": [
+    {
+      "id": "demo-0",
+      "dateISO": "2025-09-13T08:00:00Z",
+      "tests": [
+        {
+          "kind": "arithmetic",
+          "score": 381
+        },
+        {
+          "kind": "memory",
+          "score": 321
+        },
+        {
+          "kind": "reaction",
+          "score": 306,
+          "meta": {
+            "medianMs": 241
+          }
+        },
+        {
+          "kind": "oddOneOut",
+          "score": 352
+        }
+      ],
+      "totalScore": 1360,
+      "brainAge": 31
+    },
+    {
+      "id": "demo-1",
+      "dateISO": "2025-09-14T08:00:00Z",
+      "tests": [
+        {
+          "kind": "arithmetic",
+          "score": 430
+        },
+        {
+          "kind": "memory",
+          "score": 365
+        },
+        {
+          "kind": "reaction",
+          "score": 328,
+          "meta": {
+            "medianMs": 264
+          }
+        },
+        {
+          "kind": "oddOneOut",
+          "score": 457
+        }
+      ],
+      "totalScore": 1580,
+      "brainAge": 37
+    },
+    {
+      "id": "demo-2",
+      "dateISO": "2025-09-15T08:00:00Z",
+      "tests": [
+        {
+          "kind": "arithmetic",
+          "score": 483
+        },
+        {
+          "kind": "memory",
+          "score": 425
+        },
+        {
+          "kind": "reaction",
+          "score": 321,
+          "meta": {
+            "medianMs": 226
+          }
+        },
+        {
+          "kind": "oddOneOut",
+          "score": 419
+        }
+      ],
+      "totalScore": 1648,
+      "brainAge": 22
+    },
+    {
+      "id": "demo-3",
+      "dateISO": "2025-09-16T08:00:00Z",
+      "tests": [
+        {
+          "kind": "arithmetic",
+          "score": 414
+        },
+        {
+          "kind": "memory",
+          "score": 351
+        },
+        {
+          "kind": "reaction",
+          "score": 327,
+          "meta": {
+            "medianMs": 299
+          }
+        },
+        {
+          "kind": "oddOneOut",
+          "score": 353
+        }
+      ],
+      "totalScore": 1445,
+      "brainAge": 35
+    },
+    {
+      "id": "demo-4",
+      "dateISO": "2025-09-17T08:00:00Z",
+      "tests": [
+        {
+          "kind": "arithmetic",
+          "score": 402
+        },
+        {
+          "kind": "memory",
+          "score": 405
+        },
+        {
+          "kind": "reaction",
+          "score": 366,
+          "meta": {
+            "medianMs": 274
+          }
+        },
+        {
+          "kind": "oddOneOut",
+          "score": 478
+        }
+      ],
+      "totalScore": 1651,
+      "brainAge": 23
+    },
+    {
+      "id": "demo-5",
+      "dateISO": "2025-09-18T08:00:00Z",
+      "tests": [
+        {
+          "kind": "arithmetic",
+          "score": 430
+        },
+        {
+          "kind": "memory",
+          "score": 361
+        },
+        {
+          "kind": "reaction",
+          "score": 322,
+          "meta": {
+            "medianMs": 252
+          }
+        },
+        {
+          "kind": "oddOneOut",
+          "score": 410
+        }
+      ],
+      "totalScore": 1523,
+      "brainAge": 37
+    },
+    {
+      "id": "demo-6",
+      "dateISO": "2025-09-19T08:00:00Z",
+      "tests": [
+        {
+          "kind": "arithmetic",
+          "score": 448
+        },
+        {
+          "kind": "memory",
+          "score": 439
+        },
+        {
+          "kind": "reaction",
+          "score": 419,
+          "meta": {
+            "medianMs": 311
+          }
+        },
+        {
+          "kind": "oddOneOut",
+          "score": 410
+        }
+      ],
+      "totalScore": 1716,
+      "brainAge": 37
+    }
+  ],
+  "streak": {
+    "current": 3,
+    "best": 5,
+    "lastDayISO": "2025-09-19T08:00:00Z"
+  },
+  "settings": {
+    "lang": "en",
+    "dark": false,
+    "sound": true,
+    "vibration": true,
+    "difficulty": "normal",
+    "fontScale": "medium",
+    "theme": "system"
+  },
+  "badges": [
+    "streak-3",
+    "reaction-quick"
+  ],
+  "version": 1
+}

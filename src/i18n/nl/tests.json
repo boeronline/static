@@ -1,0 +1,43 @@
+{
+  "arithmetic": {
+    "title": "Rekensprint",
+    "description": "Los zoveel mogelijk sommen op voordat de tijd om is.",
+    "placeholder": "Antwoord",
+    "correct": "Goed",
+    "mistakes": "Fouten",
+    "timeLeft": "Resterende tijd",
+    "getReady": "Klaar?",
+    "tapToStart": "Tik om te starten",
+    "finished": "Tijd voorbij!"
+  },
+  "memory": {
+    "title": "Geheugen Cijfers",
+    "description": "Onthoud het nummer en typ het opnieuw nadat het verdwijnt.",
+    "showing": "Onthouden…",
+    "typeHere": "Typ de cijfers",
+    "next": "Volgende reeks",
+    "correct": "Juist!",
+    "incorrect": "Niet helemaal",
+    "streak": "Reeks lengte"
+  },
+  "reaction": {
+    "title": "Reactietijd",
+    "description": "Wacht op de vonk en tik zo snel mogelijk.",
+    "wait": "Wachten…",
+    "go": "Tik!",
+    "best": "Beste",
+    "median": "Mediaan",
+    "trial": "Poging {{count}}",
+    "ms": "{{value}} ms"
+  },
+  "oddOneOut": {
+    "title": "Welke hoort niet?",
+    "description": "Kies het item dat niet bij de regel past.",
+    "next": "Volgende puzzel",
+    "score": "Score",
+    "timeLeft": "Resterende tijd",
+    "itemsLeft": "Nog {{count}}"
+  },
+  "complete": "Voltooien",
+  "skip": "Overslaan"
+}

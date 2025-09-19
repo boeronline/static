@@ -1,0 +1,13 @@
+{
+  "title": "Progress & Insights",
+  "dailyScore": "Daily session score",
+  "testScores": "Mini-test scores",
+  "lastSeven": "Last 7 days",
+  "lastThirty": "Last 30 days",
+  "lastNinety": "Last 90 days",
+  "sessionCount": "Sessions completed",
+  "bestBrainAge": "Best brain age",
+  "averageBrainAge": "Average brain age",
+  "shareSummary": "Share summary",
+  "noSessions": "Complete a session to populate your dashboard."
+}

@@ -1,0 +1,43 @@
+{
+  "arithmetic": {
+    "title": "Arithmetic Sprint",
+    "description": "Solve as many equations as you can before the timer ends.",
+    "placeholder": "Answer",
+    "correct": "Correct",
+    "mistakes": "Mistakes",
+    "timeLeft": "Time left",
+    "getReady": "Ready?",
+    "tapToStart": "Tap to start",
+    "finished": "Time’s up!"
+  },
+  "memory": {
+    "title": "Memory Digits",
+    "description": "Memorise the number and retype it once it disappears.",
+    "showing": "Memorising…",
+    "typeHere": "Type the digits",
+    "next": "Next sequence",
+    "correct": "Correct!",
+    "incorrect": "Not quite",
+    "streak": "Sequence streak"
+  },
+  "reaction": {
+    "title": "Reaction Time",
+    "description": "Wait for the spark and tap as quickly as you can.",
+    "wait": "Wait…",
+    "go": "Tap!",
+    "best": "Best",
+    "median": "Median",
+    "trial": "Trial {{count}}",
+    "ms": "{{value}} ms"
+  },
+  "oddOneOut": {
+    "title": "Odd One Out",
+    "description": "Pick the item that doesn’t follow the rule.",
+    "next": "Next puzzle",
+    "score": "Score",
+    "timeLeft": "Time left",
+    "itemsLeft": "{{count}} left"
+  },
+  "complete": "Complete",
+  "skip": "Skip"
+}

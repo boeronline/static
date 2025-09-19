@@ -136,7 +136,7 @@ export const AppStateProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const completeCurrentTest = (score: number, meta?: Record<string, unknown>) => {
     setActiveSession((prev) => {
       if (!prev) return prev;
-      const tests = prev.tests.map((test, index) =>
+      const tests = prev.tests.map<ActiveSessionTest>((test, index) =>
         index === prev.currentIndex
           ? {
               ...test,
@@ -163,12 +163,13 @@ export const AppStateProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const skipCurrentTest = () => {
     setActiveSession((prev) => {
       if (!prev) return prev;
-      const tests = prev.tests.map((test, index) =>
+      const tests = prev.tests.map<ActiveSessionTest>((test, index) =>
         index === prev.currentIndex
           ? {
               ...test,
               status: 'complete',
-              score: 0
+              score: 0,
+              meta: test.meta
             }
           : test
       );

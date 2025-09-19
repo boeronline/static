@@ -104,10 +104,15 @@ export const AppStateProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const brainAge = calculateBrainAge(scoreMap);
     const totalScore = completeTests.reduce((sum, test) => sum + test.score, 0);
 
+    const completedScores: Session['tests'] = completeTests.map((test) => {
+      const { status: _status, ...rest } = test;
+      return rest;
+    });
+
     const newSession: Session = {
       id: session.id,
       dateISO: date,
-      tests: completeTests.map(({ status, ...rest }) => rest),
+      tests: completedScores,
       totalScore,
       brainAge
     };
@@ -136,16 +141,19 @@ export const AppStateProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const completeCurrentTest = (score: number, meta?: Record<string, unknown>) => {
     setActiveSession((prev) => {
       if (!prev) return prev;
-      const tests = prev.tests.map((test, index) =>
-        index === prev.currentIndex
-          ? {
-              ...test,
-              status: 'complete',
-              score,
-              meta: meta ? { ...test.meta, ...meta } : test.meta
-            }
-          : test
-      );
+      const tests = prev.tests.map((test, index) => {
+        if (index !== prev.currentIndex) {
+          return test;
+        }
+        const mergedMeta = meta ? { ...(test.meta ?? {}), ...meta } : test.meta;
+        const updatedTest: ActiveSessionTest = {
+          ...test,
+          status: 'complete',
+          score,
+          ...(mergedMeta !== undefined ? { meta: mergedMeta } : {})
+        };
+        return updatedTest;
+      });
       const nextIndex = prev.currentIndex + 1;
       const nextSession: ActiveSession = {
         ...prev,
@@ -163,15 +171,17 @@ export const AppStateProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const skipCurrentTest = () => {
     setActiveSession((prev) => {
       if (!prev) return prev;
-      const tests = prev.tests.map((test, index) =>
-        index === prev.currentIndex
-          ? {
-              ...test,
-              status: 'complete',
-              score: 0
-            }
-          : test
-      );
+      const tests = prev.tests.map((test, index) => {
+        if (index !== prev.currentIndex) {
+          return test;
+        }
+        const updatedTest: ActiveSessionTest = {
+          ...test,
+          status: 'complete',
+          score: 0
+        };
+        return updatedTest;
+      });
       const nextIndex = prev.currentIndex + 1;
       const nextSession: ActiveSession = {
         ...prev,

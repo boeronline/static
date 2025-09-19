@@ -2,85 +2,320 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Welcome to My Static Site</title>
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
     :root {
-      color-scheme: light dark;
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color-scheme: dark;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --surface: rgba(22, 24, 33, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f7f9ff;
+      --text-muted: rgba(217, 222, 255, 0.7);
+      --accent: #6a5df6;
+      --accent-2: #22d3ee;
+      --accent-3: #f472b6;
+      --blur-strength: 30px;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at top, #f5f7fa, #e4e7eb);
-      color: #222;
-      text-align: center;
+      background: radial-gradient(circle at 20% 20%, rgba(90, 45, 255, 0.25), transparent 55%),
+        radial-gradient(circle at 80% 0%, rgba(15, 234, 255, 0.25), transparent 45%),
+        radial-gradient(circle at 0% 100%, rgba(255, 80, 160, 0.2), transparent 45%),
+        #04060f;
+      color: var(--text-primary);
+      overflow: hidden;
+    }
+
+    .background-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(120px);
+      opacity: 0.7;
+    }
+
+    .background-glow::before,
+    .background-glow::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .background-glow::before {
+      width: 420px;
+      height: 420px;
+      top: 12vh;
+      left: calc(50% - 260px);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.85), rgba(14, 165, 233, 0.85));
+    }
+
+    .background-glow::after {
+      width: 360px;
+      height: 360px;
+      bottom: -6vh;
+      right: calc(50% - 220px);
+      background: linear-gradient(160deg, rgba(236, 72, 153, 0.75), rgba(59, 130, 246, 0.75));
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(900px, 92vw);
+      padding: clamp(2rem, 6vw, 3.75rem);
+      border-radius: 36px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      box-shadow: 0 40px 140px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(var(--blur-strength));
+      -webkit-backdrop-filter: blur(var(--blur-strength));
+      display: flex;
+      flex-direction: column;
+      gap: clamp(2rem, 5vw, 3rem);
     }
 
     header {
-      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
     }
 
-    main {
-      max-width: 640px;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(31, 41, 55, 0.15);
-      backdrop-filter: blur(4px);
+    header span.label {
+      align-self: center;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: linear-gradient(120deg, rgba(99, 102, 241, 0.15), rgba(14, 165, 233, 0.15));
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
     }
 
     h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      margin: 0 0 1rem;
+      margin: 0;
+      font-size: clamp(2.75rem, 6vw, 4rem);
+      line-height: 1.05;
+      color: var(--text-primary);
+      text-shadow: 0 10px 25px rgba(107, 114, 128, 0.45);
     }
 
-    p {
-      line-height: 1.6;
-      margin: 0 0 1rem;
+    header p {
+      margin: 0;
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      color: var(--text-muted);
     }
 
-    a.button {
-      display: inline-block;
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
       margin-top: 1rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    a.button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 20px rgba(99, 102, 241, 0.25);
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.4s ease;
+      background-size: 200% 200%;
+      position: relative;
+    }
+
+    .button.primary {
+      background-image: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #0b0d16;
+      box-shadow: 0 12px 30px rgba(108, 99, 255, 0.4);
+    }
+
+    .button.secondary {
+      background-image: linear-gradient(135deg, rgba(34, 211, 238, 0.15), rgba(244, 114, 182, 0.15));
+      color: var(--text-primary);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(36, 198, 220, 0.25);
+    }
+
+    .button svg {
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+
+    .button:hover {
+      transform: translateY(-4px);
+      background-position: 100% 0;
+    }
+
+    main {
+      display: grid;
+      gap: clamp(1.5rem, 5vw, 2.5rem);
+    }
+
+    main p {
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 1.05rem;
+      text-align: center;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .feature-card {
+      padding: 1.5rem;
+      border-radius: 24px;
+      background: linear-gradient(160deg, rgba(17, 24, 39, 0.65), rgba(17, 24, 39, 0.3));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(calc(var(--blur-strength) * 0.75));
+      -webkit-backdrop-filter: blur(calc(var(--blur-strength) * 0.75));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      inset: -40% 30% 60% -30%;
+      background: linear-gradient(120deg, rgba(34, 211, 238, 0.35), rgba(236, 72, 153, 0));
+      opacity: 0.6;
+      transform: rotate(8deg);
+      pointer-events: none;
+    }
+
+    .feature-card h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.3rem;
+      color: #ffffff;
+    }
+
+    .feature-card p {
+      text-align: left;
+      color: rgba(226, 232, 240, 0.8);
+    }
+
+    code {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(10, 14, 34, 0.65);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: var(--accent-2);
+      font-size: 0.95rem;
     }
 
     footer {
-      margin-top: 2rem;
-      font-size: 0.875rem;
-      color: rgba(55, 65, 81, 0.8);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      color: rgba(203, 213, 225, 0.7);
+      font-size: 0.9rem;
+    }
+
+    footer .social {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    footer .social a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+
+    footer .social a:hover {
+      color: var(--accent-2);
+      border-color: rgba(34, 211, 238, 0.35);
+    }
+
+    @media (max-width: 640px) {
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Hello, World!</h1>
-  </header>
-  <main>
-    <p>Welcome to your brand-new static site. This page is intentionally simple, showing how a minimal HTML document can look polished with just a hint of styling.</p>
-    <p>Edit <code>index.html</code> to make this space your own, or use it as a starting point for something even more impressive.</p>
-    <a class="button" href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web" target="_blank" rel="noreferrer">Learn HTML Basics</a>
-  </main>
-  <footer>
-    Crafted with HTML &amp; CSS · 
-    <time datetime="2024">2024</time>
-  </footer>
+  <div class="background-glow" aria-hidden="true"></div>
+  <div class="page">
+    <header>
+      <span class="label">Glassmorphism Experience</span>
+      <h1>Hello, World!</h1>
+      <p>
+        Welcome to your brand-new static site&mdash;now reimagined with a neon-infused glass aesthetic and cosmic gradients that let your content shine.
+      </p>
+      <div class="cta">
+        <a class="button primary" href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" stroke="#05060f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Start Learning
+        </a>
+        <a class="button secondary" href="#features">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 3v18m9-9H3" stroke="rgba(226,232,240,0.85)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Explore Features
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <p>
+        Edit <code>index.html</code> to make this space your own, or use it as a springboard for something even more vibrant. Every element is crafted to celebrate light, depth, and color.
+      </p>
+
+      <section id="features" class="features">
+        <article class="feature-card">
+          <h2>Immersive Visuals</h2>
+          <p>Layered gradients and luminous accents create a futuristic canvas that works beautifully on desktop or mobile.</p>
+        </article>
+        <article class="feature-card">
+          <h2>Glassmorphic Layout</h2>
+          <p>A translucent surface, soft shadows, and subtle borders deliver a premium, glass-inspired presentation.</p>
+        </article>
+        <article class="feature-card">
+          <h2>Ready to Build On</h2>
+          <p>Use this as a polished starting point for portfolios, product showcases, or any bright idea you want to share.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <span>
+        Crafted with HTML &amp; CSS ·
+        <time datetime="2024">2024</time>
+      </span>
+      <div class="social">
+        <a href="https://developer.mozilla.org/" target="_blank" rel="noreferrer">MDN Docs</a>
+        <a href="https://css-tricks.com/" target="_blank" rel="noreferrer">CSS Tricks</a>
+        <a href="https://web.dev/" target="_blank" rel="noreferrer">web.dev</a>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
